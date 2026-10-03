@@ -1,13 +1,13 @@
 ## Music Album Review System
 
-IFN636 Assessment 1 — Software Life Cycle and Management
+IFN636 Assessment 2 — Software Life Cycle and Management
 
-A web application allowing user to browse albums and submit ratings/reviews,
+A web application allowing user to browse albums and submit ratings/reviews
 with admin moderation. Built with React, Node.js/Express, and MongoDB Atlas.
 
 ### Roles
-- Admin: manage album catalogue
-- Member: browse albums, submit and manage own reviews
+- Admin: manage accounts and album catalogue, view and delete flagged reviews
+- Member: browse albums and profile, flag reviews, submit and manage own reviews
 
 ### Architecture
 

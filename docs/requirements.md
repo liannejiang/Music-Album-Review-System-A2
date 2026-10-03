@@ -1,12 +1,9 @@
 # MARS — Music Album Review System
 
-Requirements specification for implementation. This file is the single source of
-truth for Claude Code. If an instruction in a chat conflicts with this file, ask
-before proceeding.
-
 Student: Lei-An Jiang (n12656631)
 Unit: IFN636 Software Life Cycle Management, Assessment 1
-Base: QUT Task Manager MERN template
+
+> This file consolidates the requirements from the assessment report (Section 1.2) and the acceptance criteria from the Jira backlog into a single reference used during implementation. This is a working document instead of a separate specification, the report is authoritative.
 
 ---
 
@@ -79,7 +76,7 @@ The task feature is replaced entirely, not kept alongside. Delete:
 | JWT expiry | `30d` | `60m` | NFR-01 |
 | JWT payload | `{ id }` | `{ id, role }` | role check without extra DB read |
 | Duplicate email | `400` | `409` | acceptance criteria |
-| Backend port | `5001` | `5000` | matches design document |
+| Backend port | `5001` | matches design document |
 | Logout | absent | `POST /api/auth/logout` | MAR-9 |
 | Middleware | `protect` only | + `requireRole`, `requireOwnership` | FR-10 |
 
@@ -198,11 +195,16 @@ per album at the database level (FR-05).
 | GET | `/api/albums/:id` | protect | MAR-15 |
 | GET | `/api/albums/:id/reviews` | protect | MAR-15 |
 | POST | `/api/admin/albums` | protect + requireRole('admin') | MAR-10 |
+| GET | `/api/admin/albums/:id` | protect + requireRole('admin') | MAR-11 |
 | PUT | `/api/admin/albums/:id` | protect + requireRole('admin') | MAR-11 |
 | DELETE | `/api/admin/albums/:id` | protect + requireRole('admin') | MAR-12 |
 | POST | `/api/reviews` | protect + requireRole('user') | MAR-16 |
 | PUT | `/api/reviews/:id` | protect + requireOwnership | MAR-17 |
 | DELETE | `/api/reviews/:id` | protect + requireOwnership | MAR-18 |
+
+`GET /api/admin/albums/:id` exists to serve the edit form's pre-fill and is
+distinct from `GET /api/albums/:id` (MAR-15): the admin route requires the
+`admin` role, while the MAR-15 route is available to any authenticated user.
 
 Album responses include a computed `averageRating` (one decimal) and
 `reviewCount`. When `reviewCount` is 0, `averageRating` is `null` so the client
@@ -427,7 +429,7 @@ Complete the TODO: deleting an album removes all reviews referencing it
 
 **Tasks**
 - EC2 t2.micro, security group open on 22 and 80 only.
-- Node.js 20, pm2, nginx reverse-proxying port 80 to the app on 5000.
+- Node.js 20, pm2, nginx reverse-proxying port 80 to the app on 5001.
 - MongoDB Atlas network access configured for the instance.
 - `pm2 startup` + `pm2 save` so it survives reboot.
 - README with setup, architecture summary, known limitations and deployment URL.

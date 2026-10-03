@@ -1,13 +1,14 @@
 {
-  "name": "task-manager-backend",
+  "name": "mars-backend",
   "version": "1.0.0",
-  "description": "Backend for Task Manager App",
+  "description": "Backend for Music Album Review System",
   "main": "server.js",
   "scripts": {
     "test": "mocha",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "prod": "node server.js"
+    "prod": "node server.js",
+    "seed:albums": "node scripts/seedAlbums.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

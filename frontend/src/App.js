@@ -1,20 +1,29 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-function Home() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <h1 className="text-3xl font-bold text-gray-800">
-        MARS — Music Album Review System
-      </h1>
-    </div>
-  );
-}
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Catalogue from './pages/Catalogue';
+import AlbumDetail from './pages/AlbumDetail';
+import ProtectedRoute from './components/ProtectedRoute';
+import RedirectIfAuthenticated from './components/RedirectIfAuthenticated';
+import RequireAdmin from './components/RequireAdmin';
+import AlbumForm from './pages/AlbumForm';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Catalogue />} />
+          <Route path="/albums/:id" element={<AlbumDetail />} />
+          <Route element={<RequireAdmin />}>
+            <Route path="/admin/albums/new" element={<AlbumForm />} />
+            <Route path="/admin/albums/:id/edit" element={<AlbumForm />} />
+          </Route>
+        </Route>
+        <Route element={<RedirectIfAuthenticated />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

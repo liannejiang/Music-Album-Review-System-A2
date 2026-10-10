@@ -2,14 +2,23 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-    password: { type: String, required: true },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    university: { type: String },
-    address: { type: String },
-});
+const userSchema = new mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+        password: { type: String, required: true },
+        role: { type: String, enum: ['user', 'admin'], default: 'user' },
+        university: { type: String },
+        address: { type: String },
+        firstName: { type: String },
+        lastName: { type: String },
+        // sparse: accounts without a username must not collide on the unique index.
+        username: { type: String, unique: true, sparse: true, trim: true },
+        lastActivity: { type: Date, default: Date.now },
+    },
+    // createdAt doubles as the registration date.
+    { timestamps: true }
+);
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();

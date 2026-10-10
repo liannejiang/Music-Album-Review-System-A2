@@ -1,6 +1,7 @@
 
 const Review = require('../models/Review');
 const Album = require('../models/Album');
+const FlaggedReview = require('../models/FlaggedReview');
 const { aggregateRating } = require('../utils/aggregateRating');
 
 const serializeReview = (review, requesterId) => ({
@@ -113,6 +114,9 @@ const updateReview = async (req, res) => {
 const deleteReview = async (req, res) => {
     try {
         const { albumId } = req.resource;
+        // Flags first: if this fails the review still exists, so no flag is
+        // left pointing at a deleted review.
+        await FlaggedReview.deleteMany({ reviewId: req.resource._id });
         await req.resource.deleteOne();
         const { averageRating, reviewCount } = await aggregateRating(albumId);
 

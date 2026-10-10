@@ -41,6 +41,14 @@ const loginUser = async (req, res) => {
         const normalizedEmail = (email || '').trim().toLowerCase();
         const user = await User.findOne({ email: normalizedEmail });
         if (user && (await bcrypt.compare(password, user.password))) {
+            // Activity tracking is a side effect of login, not part of it: a
+            // failed write is logged and the user still gets their token.
+            // updateOne (not save) keeps the password pre-save hook out of it.
+            try {
+                await User.updateOne({ _id: user._id }, { $set: { lastActivity: new Date() } });
+            } catch (activityError) {
+                console.error('Failed to record lastActivity:', activityError.message);
+            }
             res.json({ id: user.id, name: user.name, email: user.email, role: user.role, token: generateToken(user.id, user.role) });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });

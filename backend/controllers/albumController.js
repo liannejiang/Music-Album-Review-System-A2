@@ -1,6 +1,7 @@
 
 const Album = require('../models/Album');
 const Review = require('../models/Review');
+const FlaggedReview = require('../models/FlaggedReview');
 const { aggregateRating, roundToOneDecimal } = require('../utils/aggregateRating');
 
 const PAGE_SIZE = 12;
@@ -117,6 +118,10 @@ const deleteAlbum = async (req, res) => {
             return res.status(404).json({ message: 'Album not found' });
         }
 
+        // Cascade bottom-up (flags → reviews → album) so a failure partway
+        // never leaves a child pointing at an already-deleted parent.
+        const reviewIds = await Review.find({ albumId: album._id }).distinct('_id');
+        await FlaggedReview.deleteMany({ reviewId: { $in: reviewIds } });
         await Review.deleteMany({ albumId: album._id });
         await album.deleteOne();
 

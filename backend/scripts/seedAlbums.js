@@ -12,17 +12,61 @@ const Review = require('../models/Review');
 // registration and get their own password.
 const DEMO_PASSWORD = 'Demo1234';
 
+// lastName is intentionally empty for now — surnames are still being agreed.
 const demoUsers = [
-    { name: 'Brad', email: 'brad@example.com' },
-    { name: 'Mika', email: 'mika@example.com' },
-    { name: 'Henry', email: 'henry@example.com' },
-    { name: 'Kenny', email: 'kenny@example.com' },
-    { name: 'Laios', email: 'laios@example.com' },
-    { name: 'Dio', email: 'dio@example.com' },
-    { name: 'Giorno', email: 'giorno@example.com' },
-    { name: 'Jolene', email: 'jolene@example.com' },
-    { name: 'Josuke', email: 'josuke@example.com' },
+    { name: 'Brad', email: 'brad@example.com', firstName: 'Brad', lastName: '', username: 'brad' },
+    { name: 'Mika', email: 'mika@example.com', firstName: 'Mika', lastName: '', username: 'mika' },
+    { name: 'Henry', email: 'henry@example.com', firstName: 'Henry', lastName: '', username: 'henry' },
+    { name: 'Kenny', email: 'kenny@example.com', firstName: 'Kenny', lastName: '', username: 'kenny' },
+    { name: 'Laios', email: 'laios@example.com', firstName: 'Laios', lastName: '', username: 'laios' },
+    { name: 'Dio', email: 'dio@example.com', firstName: 'Dio', lastName: '', username: 'dio' },
+    { name: 'Giorno', email: 'giorno@example.com', firstName: 'Giorno', lastName: '', username: 'giorno' },
+    { name: 'Jolene', email: 'jolene@example.com', firstName: 'Jolene', lastName: '', username: 'jolene' },
+    { name: 'Josuke', email: 'josuke@example.com', firstName: 'Josuke', lastName: '', username: 'josuke' },
 ];
+
+// Accounts inactive for more than five years, so the inactive-account
+// deletion story can be demonstrated. They deliberately have no reviews:
+// deleting a user does not cascade, and an orphaned review breaks
+// serializeReview (see docs/schema.md).
+const yearsAgo = (years) => {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - years);
+    return date;
+};
+
+const inactiveDemoUsers = [
+    {
+        name: 'Inactive Demo 1',
+        email: 'inactive1@example.com',
+        firstName: 'Inactive',
+        lastName: 'Demo 1',
+        username: 'inactive_demo_1',
+        createdAt: yearsAgo(8),
+        lastActivity: yearsAgo(6),
+    },
+    {
+        name: 'Inactive Demo 2',
+        email: 'inactive2@example.com',
+        firstName: 'Inactive',
+        lastName: 'Demo 2',
+        username: 'inactive_demo_2',
+        createdAt: yearsAgo(9),
+        lastActivity: yearsAgo(7),
+    },
+];
+
+// Admin accounts are never created through registration (they are promoted
+// directly in the database), so the seed is what makes this one restorable.
+// role is part of the profile, so every run also restores the admin role.
+const adminDemoUser = {
+    name: 'Admin Demo',
+    email: 'admin@example.com',
+    firstName: 'Admin',
+    lastName: 'Demo',
+    username: 'admin_demo',
+    role: 'admin',
+};
 
 const albums = [
     {
@@ -267,21 +311,37 @@ const seedAlbums = async () => {
 
     let usersCreated = 0;
     const userIdByName = {};
+    const allDemoUsers = [
+        ...demoUsers.map((demoUser) => ({ ...demoUser, lastActivity: new Date() })),
+        ...inactiveDemoUsers,
+        { ...adminDemoUser, lastActivity: new Date() },
+    ];
 
-    for (const demoUser of demoUsers) {
-        let user = await User.findOne({ email: demoUser.email });
+    for (const { email, createdAt, ...profile } of allDemoUsers) {
+        let user = await User.findOne({ email });
         if (!user) {
             // Goes through .save() so the schema's pre-save hook bcrypt-hashes
             // the password — a findOneAndUpdate upsert would bypass it.
             user = await User.create({
-                name: demoUser.name,
-                email: demoUser.email,
-                password: DEMO_PASSWORD,
                 role: 'user',
+                ...profile,
+                email,
+                password: DEMO_PASSWORD,
             });
             usersCreated += 1;
         }
-        userIdByName[demoUser.name] = user._id;
+
+        // Applied on every run, so users created before these fields existed
+        // are backfilled. updateOne never touches the password.
+        await User.updateOne({ _id: user._id }, { $set: profile });
+
+        // timestamps: true makes createdAt immutable, so Mongoose silently
+        // strips it from any update (even with { timestamps: false }). Write
+        // it through the native driver, bypassing casting for this field only.
+        if (createdAt) {
+            await User.collection.updateOne({ _id: user._id }, { $set: { createdAt } });
+        }
+        userIdByName[profile.name] = user._id;
     }
 
     let reviewsCreated = 0;
@@ -304,7 +364,7 @@ const seedAlbums = async () => {
     }
 
     console.log(`Albums: ${albumsCreated} created, ${albumsUpdated} updated, ${albums.length} total.`);
-    console.log(`Demo users: ${usersCreated} created, ${demoUsers.length - usersCreated} already existed.`);
+    console.log(`Demo users: ${usersCreated} created, ${allDemoUsers.length - usersCreated} already existed.`);
     console.log(`Reviews: ${reviewsCreated} created, ${reviewsUpdated} updated.`);
     console.log(
         `Catalogue is populated and ready to verify at ${process.env.APP_URL || 'http://localhost:3000'} ` +

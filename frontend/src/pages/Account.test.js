@@ -19,10 +19,12 @@ describe('Account', () => {
     axiosInstance.get.mockResolvedValue({
       data: {
         id: 'user-1',
-        name: 'Jasmine',
+        firstName: 'Jasmine',
+        lastName: 'Jiang',
         email: 'jasmine@example.com',
-        university: 'QUT',
-        address: 'Sunshine Coast, Australia',
+        username: 'jasmine',
+        createdAt: '2026-01-15T10:30:00.000Z',
+        lastActivity: '2026-10-10T09:45:00.000Z',
       },
     });
   });
@@ -31,9 +33,15 @@ describe('Account', () => {
     render(<MemoryRouter><Account /></MemoryRouter>);
 
     expect(await screen.findByText('Jasmine')).toBeInTheDocument();
+    expect(screen.getByText('Jiang')).toBeInTheDocument();
     expect(screen.getByText('jasmine@example.com')).toBeInTheDocument();
-    expect(screen.getByText('QUT')).toBeInTheDocument();
-    expect(screen.queryByText('Member since')).not.toBeInTheDocument();
+    expect(screen.getByText('jasmine')).toBeInTheDocument();
+    expect(screen.getByText('First name')).toBeInTheDocument();
+    expect(screen.getByText('Last name')).toBeInTheDocument();
+    expect(screen.getByText('Registered email address')).toBeInTheDocument();
+    expect(screen.getByText('Username')).toBeInTheDocument();
+    expect(screen.getByText('Registration date')).toBeInTheDocument();
+    expect(screen.getByText('Last activity time')).toBeInTheDocument();
     expect(axiosInstance.get).toHaveBeenCalledWith('/api/auth/profile', {
       headers: { Authorization: 'Bearer token-1' },
     });
@@ -43,14 +51,17 @@ describe('Account', () => {
     axiosInstance.get.mockResolvedValue({
       data: {
         id: 'user-1',
-        name: 'Jasmine',
+        firstName: '',
+        lastName: '',
         email: 'jasmine@example.com',
-        university: '',
-        address: '',
+        username: '',
+        createdAt: null,
+        lastActivity: null,
       },
     });
     render(<MemoryRouter><Account /></MemoryRouter>);
 
-    expect(await screen.findAllByText('Not provided')).toHaveLength(2);
+    expect(await screen.findAllByText('Not provided')).toHaveLength(3);
+    expect(screen.getAllByText('Not available')).toHaveLength(2);
   });
 });

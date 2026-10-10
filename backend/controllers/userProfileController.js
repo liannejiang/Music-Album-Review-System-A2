@@ -1,9 +1,11 @@
 const serializeProfile = (user) => ({
     id: user.id,
-    name: user.name,
     email: user.email,
-    university: user.university,
-    address: user.address,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username,
+    createdAt: user.createdAt,
+    lastActivity: user.lastActivity,
 });
 
 const createUserProfileController = (userProfileService) => {

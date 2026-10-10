@@ -27,14 +27,24 @@ const Account = () => {
     loadProfile();
   }, [user.token]);
 
-  const detailRows = [
-    ['Name', profile?.name],
-    ['Email', profile?.email],
-    ['University', profile?.university],
-    ['Address', profile?.address],
-  ];
+  const formatDateTime = (value) => {
+    if (!value) return 'Not available';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return 'Not available';
+    return new Intl.DateTimeFormat(undefined, {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }).format(date);
+  };
 
-  const displayValue = (value) => value || 'Not provided';
+  const detailRows = [
+    ['First name', profile?.firstName || 'Not provided'],
+    ['Last name', profile?.lastName || 'Not provided'],
+    ['Email address', profile?.email || 'Not provided'],
+    ['Username', profile?.username || 'Not provided'],
+    ['Registration date', formatDateTime(profile?.createdAt)],
+    ['Last activity time', formatDateTime(profile?.lastActivity)],
+  ];
 
   return (
     <main className="max-w-2xl mx-auto mt-10 mb-20 px-4">
@@ -59,7 +69,7 @@ const Account = () => {
               <div key={label} className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
                 <dt className="text-sm font-medium text-gray-600">{label}</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {displayValue(value)}
+                  {value}
                 </dd>
               </div>
             ))}

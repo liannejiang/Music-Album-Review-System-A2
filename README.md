@@ -136,7 +136,7 @@ meant to be documented here in plain text, unlike `MONGO_URI` or
 | mika@example.com | `Demo1234` |
 | henry@example.com | `Demo1234` |
 | kenny@example.com | `Demo1234` |
-| laios@example.com | `Demo1234` |
+| jasmine@example.com | `Demo1234` |
 | dio@example.com | `Demo1234` |
 | giorno@example.com | `Demo1234` |
 | jolene@example.com | `Demo1234` |

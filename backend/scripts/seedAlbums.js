@@ -18,7 +18,7 @@ const demoUsers = [
     { name: 'Mika', email: 'mika@example.com', firstName: 'Mika', lastName: '', username: 'mika' },
     { name: 'Henry', email: 'henry@example.com', firstName: 'Henry', lastName: '', username: 'henry' },
     { name: 'Kenny', email: 'kenny@example.com', firstName: 'Kenny', lastName: '', username: 'kenny' },
-    { name: 'Laios', email: 'laios@example.com', firstName: 'Laios', lastName: '', username: 'laios' },
+    { name: 'Jasmine', email: 'jasmine@example.com', firstName: 'Jasmine', lastName: '', username: 'jasmine' },
     { name: 'Dio', email: 'dio@example.com', firstName: 'Dio', lastName: '', username: 'dio' },
     { name: 'Giorno', email: 'giorno@example.com', firstName: 'Giorno', lastName: '', username: 'giorno' },
     { name: 'Jolene', email: 'jolene@example.com', firstName: 'Jolene', lastName: '', username: 'jolene' },
@@ -73,7 +73,7 @@ const albums = [
         title: 'Thriller',
         artistName: 'Michael Jackson',
         releaseYear: 1982,
-        coverImageUrl: 'https://picsum.photos/seed/thriller-1982/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1730861679144-dc64ce756668?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Wanna Be Startin\' Somethin\'', durationSec: 363 },
             { trackNumber: 2, title: 'Baby Be Mine', durationSec: 260 },
@@ -88,7 +88,7 @@ const albums = [
         title: 'Abbey Road',
         artistName: 'The Beatles',
         releaseYear: 1969,
-        coverImageUrl: 'https://picsum.photos/seed/abbey-road-1969/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1553198194-1b81858f6436?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Come Together', durationSec: 259 },
             { trackNumber: 2, title: 'Something', durationSec: 183 },
@@ -102,7 +102,7 @@ const albums = [
         title: 'Rumours',
         artistName: 'Fleetwood Mac',
         releaseYear: 1977,
-        coverImageUrl: 'https://picsum.photos/seed/rumours-1977/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1766183683881-2d4a706f5588?q=80&w=1065&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Second Hand News', durationSec: 163 },
             { trackNumber: 2, title: 'Dreams', durationSec: 257 },
@@ -116,7 +116,7 @@ const albums = [
         title: 'Back in Black',
         artistName: 'AC/DC',
         releaseYear: 1980,
-        coverImageUrl: 'https://picsum.photos/seed/back-in-black-1980/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1520262494112-9fe481d36ec3?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Hells Bells', durationSec: 312 },
             { trackNumber: 2, title: 'Shoot to Thrill', durationSec: 318 },
@@ -129,7 +129,7 @@ const albums = [
         title: 'The Dark Side of the Moon',
         artistName: 'Pink Floyd',
         releaseYear: 1973,
-        coverImageUrl: 'https://picsum.photos/seed/dark-side-of-the-moon-1973/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1773543335853-d022b8a27209?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Speak to Me', durationSec: 90 },
             { trackNumber: 2, title: 'Breathe', durationSec: 163 },
@@ -143,7 +143,7 @@ const albums = [
         title: 'Nevermind',
         artistName: 'Nirvana',
         releaseYear: 1991,
-        coverImageUrl: 'https://picsum.photos/seed/nevermind-1991/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1644855640845-ab57a047320e?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Smells Like Teen Spirit', durationSec: 301 },
             { trackNumber: 2, title: 'In Bloom', durationSec: 254 },
@@ -156,7 +156,7 @@ const albums = [
         title: 'Hotel California',
         artistName: 'Eagles',
         releaseYear: 1976,
-        // Deliberately no coverImageUrl — keeps the "No cover" fallback demonstrable.
+        coverImageUrl: 'https://images.unsplash.com/photo-1652057295518-d2a109170821?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Hotel California', durationSec: 391 },
             { trackNumber: 2, title: 'New Kid in Town', durationSec: 304 },
@@ -168,7 +168,7 @@ const albums = [
         title: 'Purple Rain',
         artistName: 'Prince',
         releaseYear: 1984,
-        coverImageUrl: 'https://picsum.photos/seed/purple-rain-1984/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1511800453077-8c0afa94175f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Let\'s Go Crazy', durationSec: 278 },
             { trackNumber: 2, title: 'Take Me with U', durationSec: 234 },
@@ -181,7 +181,7 @@ const albums = [
         title: '21',
         artistName: 'Adele',
         releaseYear: 2011,
-        coverImageUrl: 'https://picsum.photos/seed/adele-21-2011/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1744846960872-2265db6d0c84?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Rolling in the Deep', durationSec: 228 },
             { trackNumber: 2, title: 'Rumour Has It', durationSec: 224 },
@@ -193,7 +193,7 @@ const albums = [
         title: 'Random Access Memories',
         artistName: 'Daft Punk',
         releaseYear: 2013,
-        coverImageUrl: 'https://picsum.photos/seed/random-access-memories-2013/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1711054824441-064a99073a0b?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: 'Give Life Back to Music', durationSec: 274 },
             { trackNumber: 2, title: 'Get Lucky', durationSec: 369 },
@@ -208,7 +208,7 @@ const albums = [
         title: 'In Rainbows',
         artistName: 'Radiohead',
         releaseYear: 2007,
-        coverImageUrl: 'https://picsum.photos/seed/in-rainbows-2007/500/500',
+        coverImageUrl: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         tracks: [
             { trackNumber: 1, title: '15 Step', durationSec: 237 },
             { trackNumber: 2, title: 'Bodysnatchers', durationSec: 243 },
@@ -230,7 +230,7 @@ const albumReviews = {
         { user: 'Henry', stars: 5, comment: 'A masterclass in pop production.' },
         { user: 'Kenny', stars: 4, comment: 'Billie Jean alone is worth it.' },
         { user: 'Brad', stars: 4, comment: 'Some filler but the hits are massive.' },
-        { user: 'Laios', stars: 3, comment: 'Good, just not my personal favourite era.' },
+        { user: 'Jasmine', stars: 3, comment: 'Good, just not my personal favourite era.' },
         { user: 'Josuke', stars: 5, comment: 'Timeless. My parents played this on repeat.' },
     ],
     'Abbey Road': [
@@ -247,7 +247,7 @@ const albumReviews = {
     ],
     'The Dark Side of the Moon': [
         { user: 'Mika', stars: 5, comment: 'Headphones required.' },
-        { user: 'Laios', stars: 4, comment: 'Money still sounds ahead of its time.' },
+        { user: 'Jasmine', stars: 4, comment: 'Money still sounds ahead of its time.' },
         { user: 'Dio', stars: 5, comment: 'The Great Gig in the Sky gives me chills.' },
         { user: 'Josuke', stars: 3, comment: 'Great production, a bit slow for my taste.' },
     ],
@@ -255,7 +255,7 @@ const albumReviews = {
         { user: 'Kenny', stars: 5, comment: 'Changed rock music overnight.' },
         { user: 'Giorno', stars: 4, comment: 'Raw and honest.' },
         { user: 'Jolene', stars: 4, comment: 'Come as You Are is underrated.' },
-        { user: 'Laios', stars: 5, comment: "Still hits as hard as it did in '91." },
+        { user: 'Jasmine', stars: 5, comment: "Still hits as hard as it did in '91." },
         { user: 'Henry', stars: 3, comment: 'Iconic but not my genre.' },
     ],
     'Hotel California': [
@@ -268,7 +268,7 @@ const albumReviews = {
         { user: 'Giorno', stars: 4, comment: 'When Doves Cry is unlike anything else.' },
     ],
     21: [
-        { user: 'Laios', stars: 5, comment: 'Someone Like You still wrecks me.' },
+        { user: 'Jasmine', stars: 5, comment: 'Someone Like You still wrecks me.' },
         { user: 'Kenny', stars: 4, comment: 'Powerhouse vocals throughout.' },
         { user: 'Dio', stars: 4, comment: 'Consistent from start to finish.' },
         { user: 'Henry', stars: 5, comment: 'Adele at her most powerful.' },
@@ -288,13 +288,12 @@ const seedAlbums = async () => {
 
     for (const album of albums) {
         const { coverImageUrl, ...rest } = album;
-        // A plain object here would only ever ADD/overwrite fields, never
-        // clear one that's absent from the seed data — so an album with no
-        // coverImageUrl needs an explicit $unset, or a stale cover from an
-        // earlier run would survive a rerun.
+        // Covers are curated by hand through the admin form, so the seed only
+        // sets one when it inserts a new album ($setOnInsert). It never
+        // overwrites or unsets an existing cover.
         const update = coverImageUrl !== undefined
-            ? { $set: { ...rest, coverImageUrl } }
-            : { $set: rest, $unset: { coverImageUrl: '' } };
+            ? { $set: rest, $setOnInsert: { coverImageUrl } }
+            : { $set: rest };
 
         const result = await Album.findOneAndUpdate(
             { title: album.title, artistName: album.artistName },

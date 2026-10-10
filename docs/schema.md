@@ -235,7 +235,7 @@ user + album.
 
 | Accounts | Password | `createdAt` | `lastActivity` | Purpose |
 |---|---|---|---|---|
-| `brad`, `mika`, `henry`, `kenny`, `laios`, `dio`, `giorno`, `jolene`, `josuke` (`<name>@example.com`) | `Demo1234` | first seed run (absent if the account existed before A2) | time of the latest seed run | normal reviewers |
+| `brad`, `mika`, `henry`, `kenny`, `jasmine`, `dio`, `giorno`, `jolene`, `josuke` (`<name>@example.com`) | `Demo1234` | first seed run (absent if the account existed before A2) | time of the latest seed run | normal reviewers |
 | `inactive_demo_1` (`inactive1@example.com`) | `Demo1234` | 8 years before the seed run | 6 years before the seed run | inactive-account deletion demo |
 | `inactive_demo_2` (`inactive2@example.com`) | `Demo1234` | 9 years before the seed run | 7 years before the seed run | inactive-account deletion demo |
 | `admin_demo` (`admin@example.com`), role **`admin`** | `Demo1234` | first seed run | time of the latest seed run | admin features (albums, flagged reviews, accounts) |

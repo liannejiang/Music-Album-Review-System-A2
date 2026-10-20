@@ -1,3 +1,4 @@
+// Safely expose only the user profile fields needed by the client.
 const serializeProfile = (user) => ({
     id: user.id,
     email: user.email,
@@ -8,9 +9,11 @@ const serializeProfile = (user) => ({
     lastActivity: user.lastActivity,
 });
 
+// Email format check and the profile fields that must be present before updating.
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const requiredUpdateFields = ['firstName', 'lastName', 'email', 'username'];
 
+// Validate incoming profile updates before passing them to the service layer.
 const validateProfileUpdates = (body) => {
     if (!body || typeof body !== 'object' || Array.isArray(body)) {
         return { error: 'Profile details must be provided as an object' };
@@ -36,6 +39,7 @@ const validateProfileUpdates = (body) => {
 };
 
 const createUserProfileController = (userProfileService) => {
+    // Fetch a profile for the current user or another user if access is allowed.
     const getProfile = async (req, res) => {
         const requesterId = req.user.id;
         const targetUserId = req.params.userId || requesterId;
@@ -49,6 +53,7 @@ const createUserProfileController = (userProfileService) => {
         }
     };
 
+    // Update a profile after validating the submitted data and checking ownership.
     const updateProfile = async (req, res) => {
         const { updates, error: validationError } = validateProfileUpdates(req.body);
         if (validationError) {
@@ -82,6 +87,7 @@ const createUserProfileController = (userProfileService) => {
         }
     };
 
+    // Delete a user account only after the current password is supplied and verified.
     const deleteProfile = async (req, res) => {
         const { currentPassword } = req.body || {};
         if (typeof currentPassword !== 'string' || !currentPassword) {

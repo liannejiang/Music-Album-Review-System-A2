@@ -56,7 +56,9 @@ with admin moderation. Built with React, Node.js/Express, and MongoDB Atlas.
 ### Deployment
 
 **Deployment URL:** _TBD — to be filled in once the EC2 instance is live._
-http://16.176.156.12:5001/login
+EC2 - Server 1 IP: 54.252.188.249
+EC2 - Sever 2 IP: 13.210.167.66
+
 
 Manual deployment checklist, to run on the instance:
 
